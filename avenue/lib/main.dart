@@ -1,5 +1,6 @@
-// 2.9
+// @dart=2.9
 import 'package:avenue/view/bottom_view.dart';
+import 'package:avenue/view/home.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -24,6 +25,6 @@ class MyApp extends StatelessWidget {
           // is not restarted.
           primarySwatch: Colors.blue,
         ),
-        home: const BottomView());
+        home: BottomView());
   }
 }

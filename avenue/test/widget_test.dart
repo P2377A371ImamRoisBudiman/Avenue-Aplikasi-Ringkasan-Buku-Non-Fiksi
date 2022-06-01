@@ -7,7 +7,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
+import 'package:avenue/view/home.dart';
 import 'package:avenue/main.dart';
 
 void main() {

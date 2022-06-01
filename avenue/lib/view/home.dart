@@ -44,7 +44,7 @@ class _HomeState extends State<Home> {
                           AsyncSnapshot<List<ModelAvenue>> snapshot) {
                         if (snapshot.connectionState == ConnectionState.done) {
                           return SizedBox(
-                            height: 100,
+                            height: 300,
                             child: Swiper(
                                 itemCount: snapshot.data!.length,
                                 itemBuilder: (BuildContext context, int index) {
