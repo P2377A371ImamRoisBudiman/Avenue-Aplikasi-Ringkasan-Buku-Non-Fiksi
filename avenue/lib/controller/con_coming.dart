@@ -1,12 +1,13 @@
 import 'package:dio/dio.dart';
 import 'package:avenue/controller/api.dart';
 import 'package:avenue/model/model_avenue.dart';
+import 'package:sqflite/sqflite.dart';
 
-Future<List<ModelAvenue>> fetchAvenue(List<ModelAvenue> ebook) async {
+Future<List<ModelAvenue>> fetchComing(List<ModelAvenue> avenue) async {
   var request = await Dio()
-      .get(ApiConstant().baseUrl + ApiConstant().api + ApiConstant().slide);
+      .get(ApiConstant().baseUrl + ApiConstant().api + ApiConstant().coming);
   for (Map<String, dynamic> latest in request.data) {
-    ebook.add(ModelAvenue(
+    avenue.add(ModelAvenue(
         id: latest['id'],
         title: latest['title'],
         photo: latest['photo'],
@@ -22,5 +23,5 @@ Future<List<ModelAvenue>> fetchAvenue(List<ModelAvenue> ebook) async {
         rating: latest['rating'],
         free: latest['free']));
   }
-  return ebook;
+  return avenue;
 }

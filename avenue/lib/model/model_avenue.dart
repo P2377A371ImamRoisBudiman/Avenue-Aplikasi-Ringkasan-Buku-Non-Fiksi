@@ -2,7 +2,7 @@ import 'package:json_annotation/json_annotation.dart';
 part 'model_avenue.g.dart';
 
 @JsonSerializable()
-class ModelAvenue{
+class ModelAvenue {
   int id;
   String title;
   String photo;
@@ -18,10 +18,23 @@ class ModelAvenue{
   int rating;
   int free;
 
-  ModelAvenue({required this.id, required this.title, required this.photo, required this.description, required this.catId,
-    required this.statusNews, required this.pdf, required this.date, required this.authorName, required this.publisherName,
-    required this.pages, required this.language, required this.rating, required this.free});
+  ModelAvenue(
+      {required this.id,
+      required this.title,
+      required this.photo,
+      required this.description,
+      required this.catId,
+      required this.statusNews,
+      required this.pdf,
+      required this.date,
+      required this.authorName,
+      required this.publisherName,
+      required this.pages,
+      required this.language,
+      required this.rating,
+      required this.free});
 
-  factory ModelAvenue.fromJson(Map<String, dynamic> json) => _$ModelAvenueFromJson(json);
+  factory ModelAvenue.fromJson(Map<String, dynamic> json) =>
+      _$ModelAvenueFromJson(json);
   Map<String, dynamic> toJson() => _$ModelAvenueToJson(this);
 }

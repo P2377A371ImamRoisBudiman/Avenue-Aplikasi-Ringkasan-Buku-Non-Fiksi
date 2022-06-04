@@ -1,6 +1,6 @@
-import 'package:avenue/view/ebook_account.dart';
-import 'package:avenue/view/ebook_favorite.dart';
-import 'package:avenue/view/ebook_library.dart';
+import 'package:avenue/view/avenue_account.dart';
+import 'package:avenue/view/avenue_favorite.dart';
+import 'package:avenue/view/avenue_library.dart';
 import 'package:avenue/view/home.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -16,9 +16,9 @@ class _BottomViewState extends State<BottomView> {
   int currentIndex = 0;
   List<Widget> items = [
     const Home(),
-    const EbookLibrary(),
-    const EbookFavorite(),
-    const EbookAccount()
+    const avenueLibrary(),
+    const avenueFavorite(),
+    const avenueAccount()
   ];
   @override
   Widget build(BuildContext context) {
