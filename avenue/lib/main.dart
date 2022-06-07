@@ -1,6 +1,7 @@
 // @dart=2.9
 import 'package:avenue/view/bottom_view.dart';
 import 'package:avenue/view/home.dart';
+import 'package:avenue/view/register/register.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: BottomView(),
+        home: EbookRegister(),
       );
     });
   }

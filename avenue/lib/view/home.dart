@@ -43,6 +43,24 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.white70,
+        title: Row(
+          children: [
+            Container(
+              child: ClipRRect(
+                borderRadius: BorderRadius.all(Radius.circular(100)),
+                child: Image.asset('assets/image/register.png',
+                  width: 12.w, height: 6.h,
+                  fit: BoxFit.cover,),
+              ),
+            ),
+            SizedBox(width: 2.w,),
+            Text('Hallo Bro', style: TextStyle(color: Colors.black),)
+          ],
+        ),
+      ),
       body: Container(
         child: SingleChildScrollView(
             child: FutureBuilder(
@@ -313,7 +331,7 @@ class _HomeState extends State<Home> {
                                                   Colors.black.withOpacity(0.7),
                                             )),
                                             Positioned(
-                                              Center(
+                                              child: Center(
                                                 child: Text(
                                                   listCategory[index].name,
                                                   style: TextStyle(
@@ -326,6 +344,7 @@ class _HomeState extends State<Home> {
                                                       TextOverflow.ellipsis,
                                                 ),
                                               ),
+                                              bottom: 0, top: 0, right: 0, left: 0,
                                             )
                                           ],
                                         ),
