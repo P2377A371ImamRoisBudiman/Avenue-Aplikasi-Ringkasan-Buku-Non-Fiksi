@@ -1,6 +1,8 @@
 import 'package:avenue/controller/con_category.dart';
 import 'package:avenue/controller/con_latest.dart';
 import 'package:avenue/model/model_category.dart';
+import 'package:avenue/share_prefe.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:avenue/controller/con_avenue.dart';
@@ -8,6 +10,8 @@ import 'package:avenue/model/model_avenue.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:sizer/sizer.dart';
 import 'package:sqflite/sqflite.dart';
+
+import '../../controller/api.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -31,6 +35,8 @@ class _HomeState extends State<Home> {
   Future<List<ModelCategory>>? getCategory;
   List<ModelCategory> listCategory = [];
 
+  String id = '', name = '', email = '', photo = '';
+
   @override
   void initState() {
     super.initState();
@@ -38,6 +44,29 @@ class _HomeState extends State<Home> {
     getPostTerbaru = fetchLatest(listPostTerbaru);
     getComing = fetchAvenue(listComing);
     getCategory = fetchCategory(listCategory);
+    prefLoad().then((value) {
+      setState((){
+        id = value[0];
+        name = value[1];
+        email = value[2];
+        photo = value[3];
+        getPhoto(id);
+      });
+    });
+  }
+
+  Future getPhoto(String idUser) async {
+    var request = await Dio().post(ApiConstant().baseUrl+ApiConstant().viewPhoto,data: {'id': idUser});
+    var decode = request.data;
+    if (decode != "no_img"){
+      setState((){
+        photo = decode;
+      });
+    }else{
+      setState((){
+        photo = "";
+      });
+    }
   }
 
   @override
@@ -49,15 +78,17 @@ class _HomeState extends State<Home> {
         title: Row(
           children: [
             Container(
-              child: ClipRRect(
+              child: photo == "" ? ClipRRect(
                 borderRadius: BorderRadius.all(Radius.circular(100)),
-                child: Image.asset('assets/image/register.png',
-                  width: 12.w, height: 6.h,
-                  fit: BoxFit.cover,),
-              ),
+                child: Image.asset('assets/image/resgister.png',
+                fit: BoxFit.cover, width: 12.w, height: 6.h,)
+              ) : ClipRRect(
+                borderRadius: BorderRadius.all(Radius.circular(100)),
+                child: Image.network('$photo', fit: BoxFit.cover, width: 12.w, height: 6.h,),
+              )
             ),
             SizedBox(width: 2.w,),
-            Text('Hallo Bro', style: TextStyle(color: Colors.black),)
+            Text('$name', style: TextStyle(color: Colors.black),)
           ],
         ),
       ),
@@ -166,6 +197,7 @@ class _HomeState extends State<Home> {
                                 child: ListView.builder(
                                   itemBuilder:
                                       (BuildContext context, int index) {
+                                    print("persamaanIndex $index dan ${snapshot.data!.length}");
                                     if (index == snapshot.data!.length) {
                                       return GestureDetector(
                                         onTap: () {},

@@ -16,9 +16,9 @@ class _BottomViewState extends State<BottomView> {
   int currentIndex = 0;
   List<Widget> items = [
     const Home(),
-    const avenueLibrary(),
-    const avenueFavorite(),
-    const avenueAccount()
+    const AvenueLibrary(),
+    const AvenueFavorite(),
+    const AvenueAccount()
   ];
   @override
   Widget build(BuildContext context) {

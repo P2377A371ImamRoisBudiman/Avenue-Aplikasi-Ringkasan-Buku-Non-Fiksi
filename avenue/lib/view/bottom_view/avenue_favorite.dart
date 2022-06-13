@@ -1,13 +1,13 @@
 import 'package:flutter/cupertino.dart';
 
-class avenueFavorite extends StatefulWidget {
-  const avenueFavorite({Key? key}) : super(key: key);
+class AvenueFavorite extends StatefulWidget {
+  const AvenueFavorite({Key? key}) : super(key: key);
 
   @override
-  State<avenueFavorite> createState() => _avenueFavoriteState();
+  State<AvenueFavorite> createState() => _AvenueFavoriteState();
 }
 
-class _avenueFavoriteState extends State<avenueFavorite> {
+class _AvenueFavoriteState extends State<AvenueFavorite> {
   @override
   Widget build(BuildContext context) {
     return Container();

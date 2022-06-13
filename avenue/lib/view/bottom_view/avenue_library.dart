@@ -1,13 +1,13 @@
 import 'package:flutter/cupertino.dart';
 
-class avenueLibrary extends StatefulWidget {
-  const avenueLibrary({Key? key}) : super(key: key);
+class AvenueLibrary extends StatefulWidget {
+  const AvenueLibrary({Key? key}) : super(key: key);
 
   @override
-  State<avenueLibrary> createState() => _avenueLibraryState();
+  State<AvenueLibrary> createState() => _AvenueLibraryState();
 }
 
-class _avenueLibraryState extends State<avenueLibrary> {
+class _AvenueLibraryState extends State<AvenueLibrary> {
   @override
   Widget build(BuildContext context) {
     return Container();
