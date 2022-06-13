@@ -43,7 +43,8 @@ dependencies:
   flutter_swiper: ^1.1.6
   sizer: ^2.0.13
   image_picker: ^0.8.3+2
-  
+  http: ^0.13.3
+  rflutter_alert: ^2.0.4
 
 dev_dependencies:
   flutter_test:
