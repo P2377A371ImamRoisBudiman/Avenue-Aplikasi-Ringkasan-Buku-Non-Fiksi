@@ -1,5 +1,5 @@
 class ApiConstant {
-  String baseUrl = "http://192.168.0.103/avenue/ebookapp/";
+  String baseUrl = "http://192.168.240.203/ebookapp/";
   String api = "api.php?";
   String slide = "slider";
   String latest = "latest";
@@ -8,4 +8,5 @@ class ApiConstant {
   String register = "utils/register.php";
   String login = "utils/login.php";
   String viewPhoto = "utils/viewphoto.php";
+  String detail = "pdf_by_id";
 }
