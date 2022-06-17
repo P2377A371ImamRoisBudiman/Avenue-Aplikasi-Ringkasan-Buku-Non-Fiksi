@@ -1,36 +1,73 @@
+import 'package:avenue/controller/api.dart';
 import 'package:avenue/controller/con_detail.dart';
+import 'package:avenue/controller/con_save_favorite.dart';
 import 'package:avenue/model/model_avenue.dart';
+import 'package:avenue/share_prefe.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:future_progress_dialog/future_progress_dialog.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:share/share.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 
 class AvenueDetail extends StatefulWidget {
+
   int avenueId;
   int status;
 
   AvenueDetail({required this.avenueId, required this.status});
+
   @override
   _AvenueDetailState createState() => _AvenueDetailState();
 }
 
 class _AvenueDetailState extends State<AvenueDetail> {
+
   Future<List<ModelAvenue>>? getDetail;
   List<ModelAvenue> listDetail = [];
+  String chechFavorite = "0", id = "", name = "", email = "", foto = "";
+  SharedPreferences? preferences;
 
   @override
   void initState() {
     super.initState();
-
     getDetail = fetchDetail(listDetail, widget.avenueId);
+    prefLoad().then((value) {
+      setState(() {
+        id = value[0];
+        name = value[1];
+        email = value[2];
+        checkFavorites(id);
+      });
+    });
+  }
+
+  checkFavorites(String id) async{
+    var data = {'id_course' : widget.avenueId, 'id_user' : id};
+    var checkFav = await Dio().post(ApiConstant().baseUrl+ApiConstant().checkFavorite, data: data);
+    var response = checkFav.data;
+    setState(() {
+      chechFavorite = response;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        leading: GestureDetector(
+          onTap: ()=>Navigator.pop(context),
+          child: Icon(Icons.arrow_back, color: Colors.black,),
+        ),
+        title: Text('Detail', style: TextStyle(
+            color: Colors.black
+        ),),
+      ),
       body: Container(
         child: FutureBuilder(
           future: getDetail,
@@ -103,9 +140,27 @@ class _AvenueDetailState extends State<AvenueDetail> {
                                         Row(
                                           children: [
                                             GestureDetector(
-                                              onTap: () {},
-                                              child:
-                                                  Icon(Icons.bookmark_border),
+                                              onTap: () async{
+                                                await showDialog(
+                                                  context: context,
+                                                  builder: (myFav)=>FutureProgressDialog(
+                                                    saveFavorite(context: myFav,
+                                                        idAvenue: widget.avenueId.toString(),
+                                                        idUser: id)
+                                                  )
+                                                ).then((value) async{
+                                                  preferences = await SharedPreferences.getInstance();
+                                                  dynamic fav = preferences!.get('saveFavorite');
+                                                  setState(() {
+                                                    chechFavorite = fav;
+                                                  });
+                                                });
+                                              },
+                                              child: chechFavorite == "already" ? Icon(
+                                                Icons.bookmark, color: Colors.blue, size: 21.sp,
+                                              ) : Icon(
+                                                Icons.bookmark_border, color: Colors.blue, size: 21.sp,
+                                              )
                                             ),
                                             SizedBox(
                                               width: 1.5.w,
@@ -170,7 +225,7 @@ class _AvenueDetailState extends State<AvenueDetail> {
                                             Radius.circular(10)),
                                         color: Colors.blue),
                                     child: Padding(
-                                      padding: EdgeInsets.all(2),
+                                      padding: EdgeInsets.all(8),
                                       child: Text(
                                         'Segera Hadir',
                                         style: TextStyle(color: Colors.white),

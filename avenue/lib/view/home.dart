@@ -1,6 +1,8 @@
 import 'package:avenue/controller/con_category.dart';
 import 'package:avenue/controller/con_latest.dart';
 import 'package:avenue/model/model_category.dart';
+import 'package:avenue/routers.dart';
+import 'package:avenue/view/detail/avenue_detail.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:avenue/controller/con_avenue.dart';
@@ -267,7 +269,11 @@ class _HomeState extends State<Home> {
                                     itemBuilder:
                                         (BuildContext context, int index) {
                                       return GestureDetector(
-                                        onTap: () {},
+                                        onTap: () {
+                                          pushPage(context, AvenueDetail(
+                                              avenueId: listComing[index].id,
+                                              status: listComing[index].statusNews));
+                                        },
                                         child: Container(
                                           child: Column(
                                             children: [],

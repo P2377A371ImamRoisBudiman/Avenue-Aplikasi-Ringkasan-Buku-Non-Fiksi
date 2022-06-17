@@ -18,3 +18,13 @@ Future prefLoad() async {
   SharedPreferences preferences = await SharedPreferences.getInstance();
   return preferences.getStringList('login');
 }
+
+saveFavoriteAvanue(String favorite) async{
+  SharedPreferences preferences = await SharedPreferences.getInstance();
+  await preferences.setString('saveFavorite', favorite);
+}
+
+Future loadFavoriteAvanue() async{
+  SharedPreferences preferences = await SharedPreferences.getInstance();
+  return preferences.getString('saveFavorite');
+}
