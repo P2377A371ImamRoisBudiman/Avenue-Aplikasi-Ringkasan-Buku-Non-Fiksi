@@ -10,6 +10,7 @@ class ApiConstant {
   String viewPhoto = "utils/viewphoto.php";
   String checkFavorite = "utils/checkfav.php";
   String saveFavorite = "utils/save_favorite.php";
+  String updatePhoto = "utils/update_photo.php";
   String detail = "pdf_by_id";
   String favorite = "favorite";
 }
