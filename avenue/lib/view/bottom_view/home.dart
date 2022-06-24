@@ -1,7 +1,9 @@
 import 'package:avenue/controller/con_category.dart';
 import 'package:avenue/controller/con_latest.dart';
 import 'package:avenue/model/model_category.dart';
+import 'package:avenue/routers.dart';
 import 'package:avenue/share_prefe.dart';
+import 'package:avenue/view/ebook_by_cat/avenue_by_cat.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -45,7 +47,7 @@ class _HomeState extends State<Home> {
     getComing = fetchAvenue(listComing);
     getCategory = fetchCategory(listCategory);
     prefLoad().then((value) {
-      setState((){
+      setState(() {
         id = value[0];
         name = value[1];
         email = value[2];
@@ -56,14 +58,16 @@ class _HomeState extends State<Home> {
   }
 
   Future getPhoto(String idUser) async {
-    var request = await Dio().post(ApiConstant().baseUrl+ApiConstant().viewPhoto,data: {'id': idUser});
+    var request = await Dio().post(
+        ApiConstant().baseUrl + ApiConstant().viewPhoto,
+        data: {'id': idUser});
     var decode = request.data;
-    if (decode != "no_img"){
-      setState((){
+    if (decode != "no_img") {
+      setState(() {
         photo = decode;
       });
-    }else{
-      setState((){
+    } else {
+      setState(() {
         photo = "";
       });
     }
@@ -78,17 +82,31 @@ class _HomeState extends State<Home> {
         title: Row(
           children: [
             Container(
-              child: photo == "" ? ClipRRect(
-                borderRadius: BorderRadius.all(Radius.circular(100)),
-                child: Image.asset('assets/image/resgister.png',
-                fit: BoxFit.cover, width: 12.w, height: 6.h,)
-              ) : ClipRRect(
-                borderRadius: BorderRadius.all(Radius.circular(100)),
-                child: Image.network('$photo', fit: BoxFit.cover, width: 12.w, height: 6.h,),
-              )
+                child: photo == ""
+                    ? ClipRRect(
+                        borderRadius: BorderRadius.all(Radius.circular(100)),
+                        child: Image.asset(
+                          'assets/image/resgister.png',
+                          fit: BoxFit.cover,
+                          width: 12.w,
+                          height: 6.h,
+                        ))
+                    : ClipRRect(
+                        borderRadius: BorderRadius.all(Radius.circular(100)),
+                        child: Image.network(
+                          '$photo',
+                          fit: BoxFit.cover,
+                          width: 12.w,
+                          height: 6.h,
+                        ),
+                      )),
+            SizedBox(
+              width: 2.w,
             ),
-            SizedBox(width: 2.w,),
-            Text('$name', style: TextStyle(color: Colors.black),)
+            Text(
+              '$name',
+              style: TextStyle(color: Colors.black),
+            )
           ],
         ),
       ),
@@ -197,7 +215,8 @@ class _HomeState extends State<Home> {
                                 child: ListView.builder(
                                   itemBuilder:
                                       (BuildContext context, int index) {
-                                    print("persamaanIndex $index dan ${snapshot.data!.length}");
+                                    print(
+                                        "persamaanIndex $index dan ${snapshot.data!.length}");
                                     if (index == snapshot.data!.length) {
                                       return GestureDetector(
                                         onTap: () {},
@@ -342,7 +361,14 @@ class _HomeState extends State<Home> {
                                 child: ListView.builder(
                                   itemBuilder: (BuildContext cxt, int index) {
                                     return GestureDetector(
-                                      onTap: () {},
+                                      onTap: () {
+                                        pushPage(
+                                            context,
+                                            AvenueByCategory(
+                                              idCategory:
+                                                  listCategory[index].catId,
+                                            ));
+                                      },
                                       child: Container(
                                         padding: EdgeInsets.all(5),
                                         child: Stack(
@@ -376,7 +402,10 @@ class _HomeState extends State<Home> {
                                                       TextOverflow.ellipsis,
                                                 ),
                                               ),
-                                              bottom: 0, top: 0, right: 0, left: 0,
+                                              bottom: 0,
+                                              top: 0,
+                                              right: 0,
+                                              left: 0,
                                             )
                                           ],
                                         ),
