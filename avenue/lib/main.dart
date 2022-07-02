@@ -16,10 +16,17 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Sizer(builder: (context, orientation, deviceType) {
       return MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'flutter Demo',
         theme: ThemeData(
-          primarySwatch: Colors.blue,
+          brightness: Brightness.light,
+          scaffoldBackgroundColor: Colors.white,
         ),
+        darkTheme: ThemeData(
+          brightness: Brightness.dark,
+          scaffoldBackgroundColor: Color.fromARGB(255, 53, 52, 52),
+        ),
+        themeMode: ThemeMode.system,
         home: Login(),
       );
     });
